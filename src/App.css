@@ -1,0 +1,8 @@
+.App {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 1fr auto auto 1fr;
+  grid-template-areas: 'hd hd' 'nb tg' '0 tg' 'o tg';
+}
+
+

@@ -1,0 +1,41 @@
+.App_header {
+  min-height: 100px;
+  max-height: 170px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  font-size: calc(10px + 2vmin);
+  border-bottom: #b5c2ce solid 3px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-area: hd;
+}
+
+.App_header > a {
+display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  text-decoration: none
+}
+
+.App_header > a > * {
+  display: inline;
+}
+
+.App_header > a > h1 {
+  margin: 5px;
+  padding:10px;
+  margin-bottom: 5px;
+}
+
+.App_header > a > img {
+  margin: 10px;
+}

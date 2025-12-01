@@ -1,0 +1,11 @@
+.greetings {
+    align-items: center;
+    text-align: center;
+    font-size: 3em;
+    display: flex;
+    
+}
+
+.wrapper {
+    align-items: center;
+}

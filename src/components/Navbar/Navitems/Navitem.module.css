@@ -1,0 +1,15 @@
+.navitem {
+  margin-bottom: 2em;
+  border-right: #4a4dff solid 2px;
+  border-radius: 2px;
+  background-color: #e7e7e7;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.navitem:hover {
+  cursor: pointer;
+  background-color: blanchedalmond;
+  border: 0px;
+}

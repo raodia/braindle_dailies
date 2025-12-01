@@ -1,0 +1,9 @@
+.navbar {
+  grid-area: nb;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding: 10px;
+  margin: 10px;
+  border-right: #999999 solid 2px;
+}
