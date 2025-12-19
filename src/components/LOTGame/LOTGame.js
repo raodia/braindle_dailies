@@ -66,7 +66,7 @@ const LOTGame = () => {
         },
         {
           id: 11,
-          fact: "Бикини (купальник) было названо в честь дизайнера Альберта Бикини",
+          fact: "Бикини (элемент одежды) было названо в честь дизайнера Альберта Бикини",
           isTrue: false,
           explanation: "Элемент одежды \"бикини\" был назван в честь атолла (острова) Бикини, на котором проходили ядерные испытания"
           //Коралловый остров кольцеобразной формы
@@ -152,15 +152,14 @@ const LOTGame = () => {
             
             {gameOver ? (
               <div className={styles.game_over}>
-                <h2>Поздравляем! 🎉</h2>
-                <p>Вы набрали 5 очков и выиграли!</p>
+                <h2>Поздравляем!</h2>
+                <p>Вы набрали 5 очков и выиграли</p>
                 <button onClick={resetGame} className={styles.reset_button}>
                   Играть снова
                 </button>
               </div>
             ) : (
               <>
-                <div className={styles.score}>Очки: {score}/5</div>
                 
                 <div className={styles.question_card}>
                   <h2>Факт:</h2>
@@ -168,7 +167,7 @@ const LOTGame = () => {
                   
                   {blocked && (
                     <div className={styles.blocked_message}>
-                      ❌ Неправильно! Попробуйте снова через 3 секунды...
+                      Неправильно! Попробуйте снова через 3 секунды...
                     </div>
                   )}
                   
@@ -185,7 +184,7 @@ const LOTGame = () => {
                     disabled={blocked}
                     className={`${styles.truth_button} ${blocked ? styles.disabled : ''}`}
                   >
-                    Правда ✅
+                    Правда
                   </button>
                   
                   <button 
@@ -193,10 +192,11 @@ const LOTGame = () => {
                     disabled={blocked}
                     className={`${styles.lie_button} ${blocked ? styles.disabled : ''}`}
                   >
-                    Ложь ❌
+                    Ложь
                   </button>
                 </div>
-                
+
+                <div className={styles.score}>Очки: {score}/5</div>
                 <div className={styles.progress}>
                   <div 
                     className={styles.progress_bar} 

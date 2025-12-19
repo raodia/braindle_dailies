@@ -15,6 +15,7 @@ const MainScreen = () => {
             <Route path='true-or-lie' Component={LOTGame}/>
             <Route path='chess' Component={ChessGame}/>
             <Route path='home' Component={HomePage}/>
+            <Route path='' Component={HomePage}/>
             </Routes>
 
             
