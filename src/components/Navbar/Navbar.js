@@ -10,6 +10,7 @@ const Navbar = () => {
             <Navitem text='Шахматные задачи' link='/chess'></Navitem>
             <Navitem text='Печаталка' link='/blind-typer'></Navitem>
             <Navitem text='Правда/ложь' link='/true-or-lie'></Navitem>
+            <Navitem text='Слово дня' link='/wordle'></Navitem>
         </div>
     )
 }
