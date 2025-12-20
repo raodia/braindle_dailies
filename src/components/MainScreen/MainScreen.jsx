@@ -6,6 +6,7 @@ import HomePage from './../HomePage/HomePage';
 import ChessGame from './../ChessGame/ChessGame';
 import LOTGame from './../LOTGame/LOTGame';
 import WordleGame from './../Wordle/wordle';
+import SudokuGame from './../Sudoku/Sudoku';
 
 const MainScreen = () => {
     return (
@@ -17,6 +18,7 @@ const MainScreen = () => {
             <Route path='chess' Component={ChessGame}/>
             <Route path='home' Component={HomePage}/>
             <Route path='wordle' Component={WordleGame}/>
+            <Route path='sudoku6' Component={SudokuGame}/>
             <Route path='' Component={HomePage}/>
             </Routes>
 

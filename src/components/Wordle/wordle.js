@@ -173,7 +173,7 @@ const WordleGame = () => {
     // Проверка выигрыша
     if (currentGuess === word) {
       setGameStatus('won');
-      setMessage('🎉 Поздравляем! Вы угадали слово!');
+      setMessage('Поздравляем! Вы угадали слово!');
       updateUsedLetters(currentGuess);
       return;
     }
@@ -202,7 +202,7 @@ const WordleGame = () => {
         if (wordLetters[index] === letter) {
           newUsedLetters[letter] = LETTER_STATUS.CORRECT;
         } else if (wordLetters.includes(letter)) {
-          // Только обновляем если текущий статус не CORRECT
+          // Только обновляем если текущий статус не равен коррект
           if (newUsedLetters[letter] !== LETTER_STATUS.CORRECT) {
             newUsedLetters[letter] = LETTER_STATUS.PRESENT;
           }

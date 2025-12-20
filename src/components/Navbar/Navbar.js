@@ -11,6 +11,8 @@ const Navbar = () => {
             <Navitem text='Печаталка' link='/blind-typer'></Navitem>
             <Navitem text='Правда/ложь' link='/true-or-lie'></Navitem>
             <Navitem text='Слово дня' link='/wordle'></Navitem>
+            <Navitem text='Судоку6*6' link='/sudoku6'></Navitem>
+
         </div>
     )
 }

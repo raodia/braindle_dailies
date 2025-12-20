@@ -1,0 +1,268 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background: #c9d3e4;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.statItem {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  color: #34495e;
+}
+
+.gameArea {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.gridContainer {
+  flex-shrink: 0;
+}
+
+.grid {
+  display: inline-block;
+  border: 3px solid #2c3e50;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: white;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #bdc3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.cell:hover {
+  background-color: #f0f0f0;
+}
+
+.cell.selected {
+  background-color: #3498db !important;
+  color: white;
+}
+
+.cell.highlighted {
+  background-color: #e8f4fc;
+}
+
+.cell.initial {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  cursor: default;
+}
+
+.cell.topBlockBorder {
+  border-top: 2px solid #2c3e50;
+}
+
+.cell.leftBlockBorder {
+  border-left: 2px solid #2c3e50;
+}
+
+/* Специфичные стили для первой строки и первого столбца */
+.row:first-child .cell {
+  border-top: 2px solid #2c3e50;
+}
+
+.cell:first-child {
+  border-left: 2px solid #2c3e50;
+}
+
+.controls {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.numberPad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.numberButton {
+  padding: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #3498db, #2980b9);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.numberButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #2980b9, #3498db);
+}
+
+.numberButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.numberButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.actionButtons {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.actionButton {
+  flex: 1;
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actionButton:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.actionButton:first-child {
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.newGameButton {
+  background: linear-gradient(145deg, #2ecc71, #27ae60);
+  color: white;
+}
+
+.instructions {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.instructions h3 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.instructions ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #34495e;
+}
+
+.instructions li {
+  margin-bottom: 8px;
+}
+
+.completionMessage {
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  background: linear-gradient(145deg, #2ecc71, #27ae60);
+  color: white;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(46, 204, 113, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .gameArea {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .controls {
+    max-width: 100%;
+  }
+  
+  .cell {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  .numberButton {
+    padding: 15px;
+    font-size: 1.5rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+}
