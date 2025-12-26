@@ -1,6 +1,7 @@
 .container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2em auto;
+  border-radius: 10px;
   padding: 20px;
   font-family: 'Arial', sans-serif;
   background: #c9d3e4;

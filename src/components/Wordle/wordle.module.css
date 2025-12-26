@@ -110,10 +110,9 @@
 }
 
 .newGameButton:hover {
-  background-color: #2563eb;
+  background-color: #eb2525;
 }
 
-/* Сообщения */
 .message {
   text-align: center;
   font-size: 1.125rem;
@@ -242,7 +241,7 @@
 }
 
 .absent {
-  background-color: #4b5563;
+  background-color: #2a333f;
   border-color: #4b5563;
   color: white;
 }
@@ -292,7 +291,7 @@
 }
 
 .keyDefault:hover {
-  background-color: #cbd5e1;
+  background-color: #fc5039;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -302,7 +301,7 @@
   }
   
   .keyDefault:hover {
-    background-color: #64748b;
+    background-color: #ff0606;
   }
 }
 
@@ -312,7 +311,7 @@
 }
 
 .specialKey:hover {
-  background-color: #64748b;
+  background-color: #d62121;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -321,7 +320,7 @@
   }
   
   .specialKey:hover {
-    background-color: #475569;
+    background-color: #f74343;
   }
 }
 
@@ -336,7 +335,7 @@
 }
 
 .keyAbsent {
-  background-color: #4b5563;
+  background-color: #1f2630;
   color: white;
 }
 

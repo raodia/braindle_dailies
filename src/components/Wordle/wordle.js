@@ -105,12 +105,13 @@ const WordleGame = () => {
   const [guesses, setGuesses] = useState(Array(MAX_ATTEMPTS).fill().map(() => Array(WORD_LENGTH).fill('')));
   const [currentGuess, setCurrentGuess] = useState('');
   const [currentRow, setCurrentRow] = useState(0);
-  const [gameStatus, setGameStatus] = useState('playing'); // 'playing', 'won', 'lost'
+   // playing, won, lost как состояния
+  const [gameStatus, setGameStatus] = useState('playing');
   const [usedLetters, setUsedLetters] = useState({});
   const [difficulty, setDifficulty] = useState('medium');
   const [message, setMessage] = useState('');
 
-  // Инициализация игры
+  // инициадизация игры
   const initializeGame = () => {
     const wordList = WORDS[difficulty];
     const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
@@ -123,7 +124,7 @@ const WordleGame = () => {
     setMessage(`Угадайте слово из ${WORD_LENGTH} букв!`);
   };
 
-  // Начальная инициализация
+  // стартовая инициализация
   useEffect(() => {
     initializeGame();
   }, [difficulty]);
@@ -202,7 +203,7 @@ const WordleGame = () => {
         if (wordLetters[index] === letter) {
           newUsedLetters[letter] = LETTER_STATUS.CORRECT;
         } else if (wordLetters.includes(letter)) {
-          // Только обновляем если текущий статус не равен коррект
+          // обновляем если текущий статус не равен коррект
           if (newUsedLetters[letter] !== LETTER_STATUS.CORRECT) {
             newUsedLetters[letter] = LETTER_STATUS.PRESENT;
           }
@@ -271,9 +272,7 @@ const WordleGame = () => {
       <div className={styles.gameWrapper}>
         <header className={styles.header}>
           <h1 className={styles.title}>WORDLE</h1>
-          <p className={styles.subtitle}>
-            Угадайте слово за {MAX_ATTEMPTS} попыток
-          </p>
+         
         </header>
 
         <div className={styles.gameControls}>
