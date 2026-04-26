@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Sudoku.module.css';
+import Help from './HelpSudoku/Help';
 
-// Предопределенные начальные состояния (пазлы 6x6)
+// начальные состояния
 const INITIAL_PUZZLES = [
   [
     [1, 2, 0, 4, 5, 6],
@@ -46,7 +47,6 @@ const INITIAL_PUZZLES = [
 ]
 ];
 
-// Правильное решение для проверки
 const PUZZLE_SOLUTIONS = [
   [
      [1, 2, 3, 4, 5, 6],
@@ -84,7 +84,7 @@ const SudokuGame = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [puzzleIndex, setPuzzleIndex] = useState(0);
 
-  // Инициализация игры
+  // тнициализация игры
   useEffect(() => {
     startNewGame();
   }, []);
@@ -115,10 +115,8 @@ const SudokuGame = () => {
 
     const { row, col } = selectedCell;
     
-    // Проверяем, можно ли изменить эту ячейку
     if (initialGrid[row][col] !== 0) return;
 
-    // Проверяем правильность числа
     const correctNumber = PUZZLE_SOLUTIONS[puzzleIndex][row][col];
     const isCorrect = number === correctNumber;
 
@@ -246,19 +244,16 @@ const SudokuGame = () => {
             >
               Новая игра
             </button>
+          
+          
           </div>
 
-          <div className={styles.instructions}>
-            <h3>Как играть:</h3>
-            <ul>
-              <li>Кликните на пустую ячейку</li>
-              <li>Выберите число от 1 до 6</li>
-              <li>Каждое число должно быть уникальным в строке, столбце и блоке 2x3</li>
-              <li>Максимум 3 ошибки</li>
-            </ul>
-          </div>
+      <Help />
+          
         </div>
       </div>
+
+
 
       {isComplete && (
         <div className={styles.completionMessage}>

@@ -1,10 +1,14 @@
+import { Link } from 'react-router-dom';
 import styles from './Navitem.module.css';
 
 const Navitem = ( props ) => {
     return (
-            <a className={styles.navitem} href={props.link}>
+          //  <Link>
+       // </Link>
+        
+            <Link className={styles.navitem} to={props.link}>
                 {props.text}
-            </a>
+            </Link>
     )
 }
 

@@ -3,12 +3,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Times New Roman', sans-serif;
   padding: 20px;
   margin: 2em;
   text-align: center;
   flex-direction: column;
-  background-color: #a9b6ec;
   border-radius: 10%;
 }
 
@@ -30,7 +29,7 @@
   border-radius: 15px;
   padding: 30px;
   margin: 20px 0;
-  border: 2px solid #e9ecef;
+  border: 2px #e9ecef;
 }
 
 .fact_text {
@@ -92,7 +91,7 @@ button.disabled {
   border-radius: 10px;
   margin: 15px 0;
   font-weight: bold;
-  border: 1px solid #ffcdd2;
+  border: 1px #ffcdd2;
 }
 
 .explanation {

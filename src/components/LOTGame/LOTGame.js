@@ -76,9 +76,9 @@ const LOTGame = () => {
       const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
       const [score, setScore] = useState(0);
       const [gameOver, setGameOver] = useState(false);
-      const [blocked, setBlocked] = useState(false);
       const [showExplanation, setShowExplanation] = useState(false);
       const [usedQuestions, setUsedQuestions] = useState([]);
+      const [blocked, setBlocked] = useState(false);
     
       const getRandomQuestion = () => {
         const availableQuestions = questions.filter(q => !usedQuestions.includes(q.id));
@@ -92,13 +92,12 @@ const LOTGame = () => {
     
       const currentQuestion = questions[currentQuestionIndex];
     
-      const handleAnswer = (userAnswer) => {
-        if (blocked) return;
-    
+      const handleAnswer = (userAnswer) => {    
         if (userAnswer === currentQuestion.isTrue) {
           // Правильный ответ
           const newScore = score + 1;
           setScore(newScore);
+          setBlocked(true);
           
           if (newScore >= 5) {
             setGameOver(true);
@@ -106,16 +105,21 @@ const LOTGame = () => {
             setShowExplanation(true);
             setTimeout(() => {
               nextQuestion();
+          setBlocked(false);
             }, 3000);
           }
         } else {
-          // Неправильный ответ - блокировка
-          setBlocked(true);
-          setShowExplanation(true);
-          setTimeout(() => {
-            setBlocked(false);
-            setShowExplanation(false);
-          }, 3000);
+          // неправильный ответ - остановка дейлика
+          
+          
+          
+          
+          setGameOver(true); // 
+          setScore(score);
+        
+        
+        
+        
         }
       };
     
@@ -134,7 +138,6 @@ const LOTGame = () => {
       const resetGame = () => {
         setScore(0);
         setGameOver(false);
-        setBlocked(false);
         setShowExplanation(false);
         setUsedQuestions([]);
         setCurrentQuestionIndex(Math.floor(Math.random() * questions.length));
@@ -152,8 +155,8 @@ const LOTGame = () => {
             
             {gameOver ? (
               <div className={styles.game_over}>
-                <h2>Поздравляем!</h2>
-                <p>Вы набрали 5 очков и выиграли</p>
+                <h2>Игра окончена</h2>
+                <p>Вы набрали {score} очков</p>
                 <button onClick={resetGame} className={styles.reset_button}>
                   Играть снова
                 </button>
@@ -165,12 +168,6 @@ const LOTGame = () => {
                   <h2>Факт:</h2>
                   <p className={styles.fact_text}>"{currentQuestion?.fact}"</p>
                   
-                  {blocked && (
-                    <div className={styles.blocked_message}>
-                      Неправильно! Попробуйте снова через 3 секунды...
-                    </div>
-                  )}
-                  
                   {showExplanation && (
                     <div className={styles.explanation}>
                       <strong>Объяснение:</strong> {currentQuestion?.explanation}
@@ -181,16 +178,16 @@ const LOTGame = () => {
                 <div className={styles.buttons_container}>
                   <button 
                     onClick={() => handleAnswer(true)}
+                    className={`${styles.truth_button}`}
                     disabled={blocked}
-                    className={`${styles.truth_button} ${blocked ? styles.disabled : ''}`}
                   >
                     Правда
                   </button>
                   
                   <button 
                     onClick={() => handleAnswer(false)}
-                    disabled={blocked}
-                    className={`${styles.lie_button} ${blocked ? styles.disabled : ''}`}
+                    className={`${styles.lie_button}`}
+                  disabled={blocked}
                   >
                     Ложь
                   </button>

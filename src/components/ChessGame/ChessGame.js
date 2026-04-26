@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import VictoryScreen from './VictoryWindow/VictoryWindow'
 import ChessBoard from './ChessBoard/ChessBoard';
+import HelpChess from './HelpChess/HelpChess';
 
 import styles from './ChessGame.module.css';
 
@@ -33,7 +34,7 @@ const CHESS_PUZZLES = [
 
 const ChessGame = () => {
   const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
-  const [gameState, setGameState] = useState('playing'); // 'playing' | 'victory'
+  const [gameState, setGameState] = useState('playing'); // 'playing' и 'victory'
   const [playerMoves, setPlayerMoves] = useState({ from: '', to: '' });
   const [message, setMessage] = useState('');
 
@@ -50,7 +51,7 @@ const ChessGame = () => {
       setGameState('victory');
       //setMessage('');
     } else {
-      setMessage('❌ Неправильный ход! Попробуйте ещё раз.');
+      setMessage('Неправильный ход. Попробуйте ещё раз.');
       //setTimeout(() => setMessage(''), 2000);
     }
   };
@@ -72,7 +73,7 @@ const ChessGame = () => {
   return (
     <div className={styles.chess_game}>
       <header className={styles.game_header}>
-        <h1>♞ Шахматные задачи ♞</h1>
+        <h1>Шахматные задачи</h1>
         <p>Решите шахматную задачу, сделав правильный ход</p>
       </header>
 
@@ -107,15 +108,8 @@ const ChessGame = () => {
         </div>
       </div>
 
-      <div className={styles.instructions}>
-        <h3>Как играть:</h3>
-        <ul>
-          <li>Нажмите на фигуру, которую хотите переместить</li>
-          <li>Нажмите на клетку, куда хотите поставить фигуру</li>
-          <li>Решите задачу правильным ходом!</li>
-        </ul>
-
-      </div>
+        <HelpChess />
+      
     </div>
 
 

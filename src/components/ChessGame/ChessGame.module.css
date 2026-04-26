@@ -70,33 +70,3 @@
   font-weight: bold;
 }
 
-.instructions {
-  background: #ecf0f1;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 30px;
-  text-align: left;
-}
-
-.instructions h3 {
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
-
-.instructions ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.instructions li {
-  padding: 5px 0;
-  position: relative;
-  padding-left: 20px;
-}
-
-.instructions li:before {
-  content: '•';
-  color: #3498db;
-  position: absolute;
-  left: 0;
-}

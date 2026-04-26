@@ -6,9 +6,9 @@ const VictoryScreen = ({ onNextPuzzle, moves }) => {
   return (
   <div className={Styles.victory_screen}>
       <div className={Styles.victory_content}>
-        <h2>🎉 Поздравляем! 🎉</h2>
+        <h2>Поздравляем!</h2>
         <p>Вы правильно решили шахматную задачу!</p>
-        <p>Ваш ход: {moves.from} → {moves.to}</p>
+        {/* <p>Ваш ход: {moves.from} → {moves.to}</p> */}
         <button onClick={onNextPuzzle} className={Styles.next_button}>
           Следующая задача
         </button>
