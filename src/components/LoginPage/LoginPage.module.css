@@ -1,0 +1,44 @@
+.wrapper {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper > * > * {
+    margin-bottom: 1.2em;
+}
+
+.login_button {
+    background-color: antiquewhite;
+    width: 20%;
+    height: 100%;
+}
+
+.login_button:hover {
+    background-color: bisque;
+    cursor: pointer;
+}
+
+.button_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 1.2em;
+}
+
+.username_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 1.2em;
+}
+
+.password_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 1.2em;
+}

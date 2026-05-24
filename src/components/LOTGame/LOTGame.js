@@ -1,77 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import styles from './LOTGame.module.css';
+import { NavLink } from 'react-router-dom';
 
-const LOTGame = () => {
-     const [questions, setQuestions] = useState([
-        {
-          id: 1,
-          fact: "Солнце - звезда",
-          isTrue: true,
-          explanation: "Солнце действительно является звездой - желтым карликом."
-        },
-        {
-          id: 2,
-          fact: "Вода закипает при 90 градусах Цельсия при н.у.",
-          isTrue: false,
-          explanation: "Вода закипает при 100 градусах Цельсия при нормальном атмосферном давлении."
-        },
-        {
-          id: 3,
-          fact: "Пингвины умеют летать",
-          isTrue: false,
-          explanation: "Пингвины - нелетающие птицы, они хорошо плваают, но не летают."
-        },
-        {
-          id: 4,
-          fact: "Python - это язык программирования",
-          isTrue: true,
-          explanation: "Python - мусор, но всё-таки ЯП, эх."
-        },
-        {
-          id: 5,
-          fact: "Земля плоская",
-          isTrue: false,
-          explanation: "Научно доказано, что Земля имеет форму геоида (сплюснутый у полюсов шар)."
-        },
-        {
-          id: 6,
-          fact: "Медвежата при рождении весят около 5 килограммов",
-          isTrue: false,
-          explanation: "На самом деле, их вес при рождении составляет всего полкило"
-        },
-        {
-          id: 7,
-          fact: "Свет быстрее звука",
-          isTrue: true,
-          explanation: "Свет распространяется со скоростью 300,000 км/с, а звук - около 340 м/с."
-        },
-        {
-          id: 8,
-          fact: "Акулы болеют раком",
-          isTrue: true,
-          explanation: "акулы действительно могут болеть раком."
-        },
-        {
-          id: 9,
-          fact: "Венера - самая горячая планета Солнечной системы",
-          isTrue: true,
-          explanation: "Из-за парникового эффекта температура на Венере достигает 470°C."
-        },
-        {
-          id: 10,
-          fact: "Название реки Волга происходит от слова \"волочь\"",
-          isTrue: false,
-          explanation: "Это неправда, оно происходит от старославянского \"влага\""
-        },
-        {
-          id: 11,
-          fact: "Бикини (элемент одежды) было названо в честь дизайнера Альберта Бикини",
-          isTrue: false,
-          explanation: "Элемент одежды \"бикини\" был назван в честь атолла (острова) Бикини, на котором проходили ядерные испытания"
-          //Коралловый остров кольцеобразной формы
-        }
-      ]);
+const LOTGame = (props) => {
+     let questions = props.state;
     
       const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
       const [score, setScore] = useState(0);
@@ -108,17 +41,11 @@ const LOTGame = () => {
           setBlocked(false);
             }, 3000);
           }
-        } else {
-          // неправильный ответ - остановка дейлика
-          
-          
-          
-          
+        } else {          
           setGameOver(true); // 
           setScore(score);
         
-        
-        
+                
         
         }
       };
@@ -156,10 +83,10 @@ const LOTGame = () => {
             {gameOver ? (
               <div className={styles.game_over}>
                 <h2>Игра окончена</h2>
-                <p>Вы набрали {score} очков</p>
-                <button onClick={resetGame} className={styles.reset_button}>
-                  Играть снова
-                </button>
+                <p>Вы набрали {score} очков из 5</p>
+                <NavLink to={'/home'} onClick={resetGame} className={styles.reset_button}>
+                  На главную
+                </NavLink>
               </div>
             ) : (
               <>
@@ -202,8 +129,6 @@ const LOTGame = () => {
                 </div>
               </>
             )}
-
-
         </div>
       );
 }

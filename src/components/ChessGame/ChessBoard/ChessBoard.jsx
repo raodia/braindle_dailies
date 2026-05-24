@@ -6,7 +6,7 @@ const ChessBoard = ({ position, onMove, isWhite }) => {
   const files = isWhite ? ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] : ['h', 'h', 'f', 'e', 'd', 'c', 'b', 'a'];
   const boardLines = isWhite ? ['8', '7', '6', '5', '4', '3', '2', '1'] : ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-  // возвращаем символ фигуры в обмен на её название (например, если подана k - возврат ♚)
+  // возвращаем символ фигуры в обмен на её название (k - возврат ♚ и тд)
   const getPieceSymbol = (piece) => {
     const symbols = {
       'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
@@ -15,7 +15,7 @@ const ChessBoard = ({ position, onMove, isWhite }) => {
     return symbols[piece] || '';
   };
 
-  // парсер ФЕНа
+  // парсер фена
 
   const parseFEN = (fen) => {
     const board = Array(8).fill().map(() => Array(8).fill(''));

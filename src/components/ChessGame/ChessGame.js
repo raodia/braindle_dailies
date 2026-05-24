@@ -6,37 +6,14 @@ import HelpChess from './HelpChess/HelpChess';
 
 import styles from './ChessGame.module.css';
 
-
-//  задачи
-const CHESS_PUZZLES = [
-  {
-    id: 1,
-    fen: '5B1k/5Q2/4p1p1/5p1p/4P2P/5P2/6K1/8 w - - 0 1',
-    solution: ['f7', 'g7'],
-    description: 'Мат в 1 ход за белых'
-  },
-  {
-    id: 2,
-    fen: 'rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq - 0 2',
-    solution: ['d8', 'h4'],
-    description: 'Мат в 1 ход за черных'
-  },
-  {
-    id: 3,
-    fen: 'r1bqk2r/pppp1ppp/1bn5/4P3/2BP4/5N2/PP3PPP/RNBQK2R w KQkq - 0 1',
-    solution: ['c4', 'f7'],
-    description: 'Хорошая жертва'
-  }
-];
-
-
-
-
-const ChessGame = () => {
+const ChessGame = (props) => {
+debugger;
+  let CHESS_PUZZLES = props.puzzlesDispatch({type: 'GET-TODAY-PUZZLES'}).chess;
   const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
   const [gameState, setGameState] = useState('playing'); // 'playing' и 'victory'
   const [playerMoves, setPlayerMoves] = useState({ from: '', to: '' });
   const [message, setMessage] = useState('');
+  debugger;
 
   const currentPuzzle = CHESS_PUZZLES[currentPuzzleIndex];
 
@@ -115,5 +92,6 @@ const ChessGame = () => {
 
   );
 };
+
 
 export default ChessGame;

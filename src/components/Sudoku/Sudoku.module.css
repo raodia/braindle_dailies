@@ -83,15 +83,20 @@
   color: white;
 }
 
-.cell.highlighted {
-  background-color: #e8f4fc;
-}
-
 .cell.initial {
   background-color: #ecf0f1;
   color: #2c3e50;
   cursor: default;
 }
+.cell.wrong {
+  background-color: #e2786c !important;
+  color: white;
+}
+
+.cell.highlighted {
+  background-color: #e8f4fc;
+}
+
 
 .cell.topBlockBorder {
   border-top: 2px solid #2c3e50;

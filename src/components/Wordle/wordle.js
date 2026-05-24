@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './wordle.module.css';
 
-// Объект со случайными словами (5 букв)
-const WORDS = {
-  easy: ['МАРКА', 'МЕТКА', 'КОРКА', 'АРБУЗ', 'ШКОЛА', 'ГОРОД', 'ПЧЕЛА', 'ОКРУГ', 'УЛИЦА', 'ЛЕЙКА'],
-  medium: ['СЦЕНА', 'ЧАШКА', 'СОЙКА', 'ОРГАН', 'РОЯЛЬ', 'КУСТЫ', 'ПАШНЯ', 'СОСЕД', 'СОСНА', 'НОРКА'],
-  hard: ['ЩЕГОЛ', 'ЦЫГАН', 'ПАРЧА', 'ЭКРАН', 'АВРАЛ', 'АРКАН', 'ПЕВЕЦ', 'ЮНОША', 'АЗАРТ', 'КВАРК']
-};
-
-// Константы игры
 const WORD_LENGTH = 5;
 const MAX_ATTEMPTS = 6;
 const LETTER_STATUS = {
@@ -18,10 +10,10 @@ const LETTER_STATUS = {
   EMPTY: 'empty'
 };
 
-// Компонент для отдельной буквы
+// компонент для отдельной буквы
 const LetterTile = ({ letter, status }) => {
   const getStatusClass = () => {
-    switch(status) {
+    switch (status) {
       case LETTER_STATUS.CORRECT:
         return styles.correct;
       case LETTER_STATUS.PRESENT:
@@ -55,12 +47,12 @@ const Keyboard = ({ onKeyPress, usedLetters }) => {
   const getKeyClass = (key) => {
     const status = getKeyStatus(key);
     const isSpecialKey = key.length > 1;
-    
+
     if (isSpecialKey) {
       return styles.specialKey;
     }
 
-    switch(status) {
+    switch (status) {
       case LETTER_STATUS.CORRECT:
         return styles.keyCorrect;
       case LETTER_STATUS.PRESENT:
@@ -99,22 +91,27 @@ const Keyboard = ({ onKeyPress, usedLetters }) => {
   );
 };
 
-// Главный компонент игры
-const WordleGame = () => {
+
+const WordleGame = (props) => {
+  const WORDS = props.state;
   const [word, setWord] = useState('');
   const [guesses, setGuesses] = useState(Array(MAX_ATTEMPTS).fill().map(() => Array(WORD_LENGTH).fill('')));
   const [currentGuess, setCurrentGuess] = useState('');
   const [currentRow, setCurrentRow] = useState(0);
-   // playing, won, lost как состояния
+  // playing, won, lost как состояния
   const [gameStatus, setGameStatus] = useState('playing');
   const [usedLetters, setUsedLetters] = useState({});
   const [difficulty, setDifficulty] = useState('medium');
   const [message, setMessage] = useState('');
+  debugger;
+
 
   // инициадизация игры
   const initializeGame = () => {
-    const wordList = WORDS[difficulty];
-    const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+  debugger;
+
+    const wordList = WORDS;
+    const randomWord = wordList[Math.floor(Math.random() * wordList.length)].word;
     setWord(randomWord);
     setGuesses(Array(MAX_ATTEMPTS).fill().map(() => Array(WORD_LENGTH).fill('')));
     setCurrentGuess('');
@@ -175,12 +172,12 @@ const WordleGame = () => {
     if (currentGuess === word) {
       setGameStatus('won');
       setMessage('Поздравляем! Вы угадали слово!');
-      updateUsedLetters(currentGuess);
+      updateUsedLetters(currentGuess, word);
       return;
     }
 
     // Обновление использованных букв
-    updateUsedLetters(currentGuess);
+    updateUsedLetters(currentGuess, word);
 
     // Переход к следующей попытке
     if (currentRow + 1 >= MAX_ATTEMPTS) {
@@ -194,165 +191,210 @@ const WordleGame = () => {
   };
 
   // Обновление статуса использованных букв
-  const updateUsedLetters = (guess) => {
+  const updateUsedLetters = (guess, word) => {
     const newUsedLetters = { ...usedLetters };
-    const wordLetters = word.split('');
+    const wordArr = word.split('');
+    const guessArr = guess.split('');
 
-    guess.split('').forEach((letter, index) => {
-      if (!newUsedLetters[letter]) {
-        if (wordLetters[index] === letter) {
-          newUsedLetters[letter] = LETTER_STATUS.CORRECT;
-        } else if (wordLetters.includes(letter)) {
-          // обновляем если текущий статус не равен коррект
-          if (newUsedLetters[letter] !== LETTER_STATUS.CORRECT) {
-            newUsedLetters[letter] = LETTER_STATUS.PRESENT;
-          }
-        } else {
-          newUsedLetters[letter] = LETTER_STATUS.ABSENT;
-        }
+    let answerLetters = {};
+
+    for (let char of word) {
+      answerLetters[char] = (answerLetters[char] || 0) + 1;
+    }
+    debugger;
+
+    // Первый проход: точные совпадения (зелёные)
+    guessArr.forEach((letter, i) => {
+      if (wordArr[i] === letter) {
+
+        newUsedLetters[letter] = LETTER_STATUS.CORRECT;
+        answerLetters[guess[i]]--;
+        debugger;
       }
     });
 
+    // Второй проход: буквы не на своих местах (жёлтые) или отсутствующие
+    guessArr.forEach((letter, i) => {
+      // Пропускаем точные совпадения
+      if (wordArr[i] === letter) return;
+
+      const char = guess[i];
+      if (answerLetters[char] > 0) {
+        newUsedLetters[letter] = LETTER_STATUS.PRESENT;
+        answerLetters[letter]--;
+      } else {
+        if (wordArr[i] !== letter)
+          newUsedLetters[letter] = LETTER_STATUS.ABSENT;
+      }
+
+    });
+    debugger;
     setUsedLetters(newUsedLetters);
   };
 
-  // Получение статуса буквы для отображения
-  const getLetterStatus = (rowIndex, colIndex, letter) => {
-    if (rowIndex < currentRow || (rowIndex === currentRow && gameStatus !== 'playing')) {
-      if (letter === word[colIndex]) {
-        return LETTER_STATUS.CORRECT;
-      } else if (word.includes(letter)) {
+
+
+const getLetterStatus = (rowIndex, colIndex, letter) => {
+  if (rowIndex < currentRow || (rowIndex === currentRow && gameStatus !== 'playing')) {
+    // Сначала нужно получить ВСЮ строку догадки, а не только текущую букву
+    // Предполагаю, что у вас есть массив guesses или что-то подобное
+    const fullGuess = guesses[rowIndex]; // Полная догадка для этой строки
+    const wordArr = word.split('');
+    
+    // ЗЕЛЁНЫЙ: точное совпадение по позиции
+    if (letter === word[colIndex]) {
+      return LETTER_STATUS.CORRECT;
+    }
+    
+    // ЖЁЛТЫЙ: буква есть в слове, но не на этой позиции
+    // НО нужно учитывать повторяющиеся буквы!
+    if (word.includes(letter)) {
+      // Считаем, сколько раз буква встречается в ответе
+      let answerCount = 0;
+      for (let char of word) {
+        if (char === letter) answerCount++;
+      }
+      
+      // Считаем, сколько раз эта буква уже использована в ЗЕЛЁНЫХ позициях
+      let greenUsed = 0;
+      for (let i = 0; i < 5; i++) {
+        if (fullGuess[i] === letter && word[i] === letter) {
+          greenUsed++;
+        }
+      }
+      
+      // Считаем, сколько раз эта буква уже использована в ЖЁЛТЫХ позициях
+      let yellowUsed = 0;
+      for (let i = 0; i < colIndex; i++) {
+        if (fullGuess[i] === letter && 
+            fullGuess[i] !== word[i] && 
+            word.includes(letter)) {
+          // Проверяем, не заблокирована ли эта позиция зелёными
+          let isBlocked = false;
+          for (let j = 0; j < 5; j++) {
+            if (fullGuess[i] === word[j] && i === j) {
+              isBlocked = true;
+              break;
+            }
+          }
+          if (!isBlocked) yellowUsed++;
+        }
+      }
+      
+      // Если остались неиспользованные копии буквы
+      if (answerCount > greenUsed + yellowUsed) {
         return LETTER_STATUS.PRESENT;
-      } else {
-        return LETTER_STATUS.ABSENT;
       }
     }
+    
+    return LETTER_STATUS.ABSENT;
+  } else {
     return LETTER_STATUS.EMPTY;
-  };
+  }
+}
 
-  // Рендер сетки игры
-  const renderGrid = () => {
-    return (
-      <div className={styles.grid}>
-        {guesses.map((guess, rowIndex) => (
-          <div key={rowIndex} className={styles.row}>
-            {Array(WORD_LENGTH).fill().map((_, colIndex) => {
-              const letter = rowIndex === currentRow && colIndex < currentGuess.length 
-                ? currentGuess[colIndex] 
-                : guess[colIndex] || '';
-              const status = getLetterStatus(rowIndex, colIndex, letter);
-              
-              return (
-                <LetterTile
-                  key={`${rowIndex}-${colIndex}`}
-                  letter={letter}
-                  status={status}
-                />
-              );
-            })}
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const getMessageClass = () => {
-    switch(gameStatus) {
-      case 'won':
-        return styles.messageSuccess;
-      case 'lost':
-        return styles.messageError;
-      default:
-        return styles.messageInfo;
-    }
-  };
-
+// Рендер сетки игры
+const renderGrid = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.gameWrapper}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>WORDLE</h1>
-         
-        </header>
+    <div className={styles.grid}>
+      {guesses.map((guess, rowIndex) => (
+        <div key={rowIndex} className={styles.row}>
+          {Array(WORD_LENGTH).fill().map((_, colIndex) => {
+            const letter = rowIndex === currentRow && colIndex < currentGuess.length
+              ? currentGuess[colIndex]
+              : guess[colIndex] || '';
+            const status = getLetterStatus(rowIndex, colIndex, letter);
 
-        <div className={styles.gameControls}>
-          <div className={styles.controlsRow}>
-            <div className={styles.difficultySelector}>
-              <span className={styles.difficultyLabel}>Сложность:</span>
-              <select
-                value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value)}
-                className={styles.select}
-                disabled={gameStatus === 'playing' && currentRow > 0}
-              >
-                <option value="easy">Легкая</option>
-                <option value="medium">Средняя</option>
-                <option value="hard">Сложная</option>
-              </select>
-            </div>
-            <button
-              onClick={initializeGame}
-              className={styles.newGameButton}
-            >
-              Новая игра
-            </button>
-          </div>
-
-          {message && (
-            <div className={`${styles.message} ${getMessageClass()}`}>
-              {message}
-            </div>
-          )}
+            return (
+              <LetterTile
+                key={`${rowIndex}-${colIndex}`}
+                letter={letter}
+                status={status}
+              />
+            );
+          })}
         </div>
+      ))}
+    </div>
+  );
+};
 
-        <div className={styles.gameBoard}>
-          {renderGrid()}
-        </div>
+const getMessageClass = () => {
+  switch (gameStatus) {
+    case 'won':
+      return styles.messageSuccess;
+    case 'lost':
+      return styles.messageError;
+    default:
+      return styles.messageInfo;
+  }
+};
 
-        <Keyboard
-          onKeyPress={handleKeyPress}
-          usedLetters={usedLetters}
-        />
+return (
+  <div className={styles.container}>
+    <div className={styles.gameWrapper}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>WORDLE</h1>
 
-        <div className={styles.instructions}>
-          <h3 className={styles.instructionsTitle}>Как играть:</h3>
-          <ul className={styles.instructionsList}>
-            <li>
-              <span className={styles.bullet}>•</span>
-              Введите слово из 5 букв и нажмите Enter
-            </li>
-            <li>
-              <span className={`${styles.colorExample} ${styles.correctExample}`}></span>
-              - буква на правильном месте
-            </li>
-            <li>
-              <span className={`${styles.colorExample} ${styles.presentExample}`}></span>
-              - буква есть в слове, но в другом месте
-            </li>
-            <li>
-              <span className={`${styles.colorExample} ${styles.absentExample}`}></span>
-              - буквы нет в слове
-            </li>
-            <li>
-              <span className={styles.bullet}>•</span>
-              У вас есть {MAX_ATTEMPTS} попыток чтобы угадать слово
-            </li>
-          </ul>
-        </div>
+      </header>
 
-        {gameStatus !== 'playing' && (
-          <div className={styles.restartSection}>
-            <button
-              onClick={initializeGame}
-              className={styles.restartButton}
-            >
-              Играть снова
-            </button>
+      <div className={styles.gameControls}>
+
+        {message && (
+          <div className={`${styles.message} ${getMessageClass()}`}>
+            {message}
           </div>
         )}
       </div>
+
+      <div className={styles.gameBoard}>
+        {renderGrid()}
+      </div>
+
+      <Keyboard
+        onKeyPress={handleKeyPress}
+        usedLetters={usedLetters}
+      />
+
+      <div className={styles.instructions}>
+        <h3 className={styles.instructionsTitle}>Как играть:</h3>
+        <ul className={styles.instructionsList}>
+          <li>
+            <span className={styles.bullet}>•</span>
+            Введите слово из 5 букв и нажмите Enter
+          </li>
+          <li>
+            <span className={`${styles.colorExample} ${styles.correctExample}`}></span>
+            - буква на правильном месте
+          </li>
+          <li>
+            <span className={`${styles.colorExample} ${styles.presentExample}`}></span>
+            - буква есть в слове, но в другом месте
+          </li>
+          <li>
+            <span className={`${styles.colorExample} ${styles.absentExample}`}></span>
+            - буквы нет в слове
+          </li>
+          <li>
+            <span className={styles.bullet}>•</span>
+            У вас есть {MAX_ATTEMPTS} попыток чтобы угадать слово
+          </li>
+        </ul>
+      </div>
+
+      {gameStatus !== 'playing' && (
+        <div className={styles.restartSection}>
+          <button
+            onClick={initializeGame}
+            className={styles.restartButton}
+          >
+            Вернуться
+          </button>
+        </div>
+      )}
     </div>
-  );
+  </div>
+);
 };
 
 export default WordleGame;
