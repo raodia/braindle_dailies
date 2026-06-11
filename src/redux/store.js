@@ -4,6 +4,9 @@ import lotReducer from './reducers/lotReducer';
 import wordleReducer from './reducers/wordleReducer';
 import typingReducer from './reducers/typingReducer';
 import usersReducer from './reducers/usersReducer';
+import currentuserReducer from './reducers/currentUserReducer';
+
+const LOGIN_USER = 'LOGIN-USER';
 
 let store = {
     USERS_STATE: {
@@ -116,6 +119,9 @@ let store = {
                 }
 
             }
+        },
+        setUsers(usersdataimport) {
+            this.usersData = usersdataimport;
         }
     },
     PUZZLES_STATE: {
@@ -485,7 +491,6 @@ let store = {
             let someday = new Date(2026, 4, 19, 16, 0);
             let startStr = startDate.toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
             console.log(startStr);
-            debugger;
             let id = this._getDaysDifference(startDate, someday) + 1;
             console.log(this._getDaysDifference(startDate, someday));
             if (id < 0) {
@@ -496,6 +501,11 @@ let store = {
             }
         }
     },
+    TODAY_PUZZLES: {},
+    setTodayPuzzles() {
+        this.TODAY_PUZZLES = this.PUZZLES_STATE.getTodayPuzzles(new Date());
+    },
+    CURRENT_USER: 0,
     dispatch(action) {
         
         //this.PUZZLES_STATE
@@ -505,18 +515,27 @@ let store = {
         this.PUZZLES_STATE.lot_puzzles = lotReducer(this.PUZZLES_STATE.lot_puzzles, action);
         this.PUZZLES_STATE.typing_puzzles = typingReducer(this.PUZZLES_STATE.typing_puzzles, action);
         this.USERS_STATE.usersData = usersReducer(this.USERS_STATE.usersData, action);
-
-        if (action.type === 'LOGIN-USER') {
-            console.log('login');
-        } else if (action.type === 'GET-TODAY-PUZZLES') {
+        // currentuserReducer.bind(this.USERS_STATE);
+        // this.CURRENT_USER = currentuserReducer(this.CURRENT_USER, action);
+        if (action.type === 'GET-TODAY-PUZZLES') {
             this.PUZZLES_STATE.getTodayPuzzles.bind(this);
             console.log(this.PUZZLES_STATE.getTodayPuzzles(new Date()));
             return this.PUZZLES_STATE.getTodayPuzzles(new Date());
         }
+        let newState = 0;
+    if (action.type === LOGIN_USER) {
+        // тут я проверяю, есть ли такой пользователь
+        if (this.USERS_STATE.isUserExists(action.userdata.username)) {
+            
+            let currentUser = this.USERS_STATE.usersData.find(some => some.username === action.userdata.username);
+            if (action.userdata.password === currentUser.password) {
+                newState = action.userdata.userid;
+            }
+            console.log(this.USERS_STATE.usersData[newState-1]);
+        }
+        this.CURRENT_USER = newState;
+    }
     }
 };
-
-
-
 
 export { store };

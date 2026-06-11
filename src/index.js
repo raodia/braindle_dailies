@@ -13,7 +13,7 @@ let rerenderEntireApp = () => {
     <BrowserRouter>
   
   <React.StrictMode>
-    <App puzzlesState={store} puzzlesDispatch={store.dispatch.bind(store)}/>
+    <App puzzlesState={store} puzzlesDispatch={store.dispatch.bind(store)} rerender={rerenderEntireApp} />
   </React.StrictMode>
 </BrowserRouter>
 )

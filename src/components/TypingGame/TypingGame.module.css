@@ -2,24 +2,27 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Martian Mono', sans-serif;
+  font-family: "Martian Mono", sans-serif;
   text-align: center;
   grid-area: tg;
 }
 
 @font-face {
-  font-family: 'Martian Mono';
-  src: url('./../../fonts/MartianMono-Regular.ttf');
+  font-family: "Martian Mono";
+  src: url("./../../fonts/MartianMono-Regular.ttf");
 }
 
-.start_screen, .results_screen {
+.start_screen,
+.results_screen {
   background: #f5f5f5;
   padding: 40px;
   border-radius: 10px;
   margin: 20px 0;
 }
 
-.start_button, .restart_button, .finish_button {
+.start_button,
+.restart_button,
+.finish_button {
   background: #007bff;
   color: white;
   border: none;
@@ -31,7 +34,9 @@
   transition: background 0.3s;
 }
 
-.start_button:hover, .restart_button:hover, .finish_button:hover {
+.start_button:hover,
+.restart_button:hover,
+.finish_button:hover {
   background: #0056b3;
 }
 
@@ -111,7 +116,8 @@
   margin: 30px 0;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: #333;
 }
 
@@ -121,4 +127,141 @@ h1, h2 {
 
 .typing_game h2 {
   margin-bottom: 20px;
+}
+
+/* 
+  медиазапросы не готовы тут, возможно, лучше просто убрать из мобильной версии тайпинг
+*/
+
+@media (max-width: 1000px) {
+  .typing_game {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "Martian Mono", sans-serif;
+    text-align: center;
+    grid-area: tg;
+  }
+
+  @font-face {
+    font-family: "Martian Mono";
+    src: url("./../../fonts/MartianMono-Regular.ttf");
+  }
+
+  .start_screen,
+  .results_screen {
+    background: #f5f5f5;
+    padding: 40px;
+    border-radius: 10px;
+    margin: 20px 0;
+  }
+
+  .start_button,
+  .restart_button,
+  .finish_button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background 0.3s;
+  }
+
+  .start_button:hover,
+  .restart_button:hover,
+  .finish_button:hover {
+    background: #0056b3;
+  }
+
+  .finish_button {
+    background: #dc3545;
+  }
+
+  .finish_button:hover {
+    background: #c82333;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .text_display {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 15px 0;
+    padding: 15px;
+    background-color: white;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    min-height: 100px;
+    text-align: left;
+  }
+
+  .char {
+    transition: all 0.2s;
+    display: inline-block;
+    margin-left: 0.5px;
+  }
+
+  .char.correct {
+    color: #28a745;
+    background-color: #d4edda;
+  }
+
+  .char.incorrect {
+    color: #dc3545;
+    background-color: #f8d7da;
+    text-decoration: underline;
+  }
+
+  .char.current {
+    background-color: #fff3cd;
+    border-left: 2px solid #ffc107;
+  }
+
+  .char.incorrect.current {
+    background-color: #f8d7da;
+    border-left: 2px solid #ffc107;
+    color: #dc3545;
+  }
+
+  .typing_input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    margin: 20px 0;
+    outline: none;
+  }
+
+  .typing_input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  }
+
+  .results {
+    margin: 30px 0;
+  }
+
+  h1,
+  h2 {
+    color: #333;
+  }
+
+  .typing_game h1 {
+    margin-bottom: 30px;
+  }
+
+  .typing_game h2 {
+    margin-bottom: 20px;
+  }
 }

@@ -1,11 +1,23 @@
 .greetings {
-    align-items: center;
-    text-align: center;
-    font-size: 3em;
-    display: flex;
-    
+  align-items: center;
+  text-align: center;
+  font-size: 3em;
+  display: flex;
 }
 
 .wrapper {
+  align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .greetings {
     align-items: center;
+    text-align: center;
+    font-size: 100%;
+    display: flex;
+  }
+
+  .wrapper {
+    align-items: center;
+  }
 }

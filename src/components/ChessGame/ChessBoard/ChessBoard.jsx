@@ -3,6 +3,7 @@ import Styles from './ChessBoard.module.css';
 
 
 const ChessBoard = ({ position, onMove, isWhite }) => {
+  // инициализация доски
   const files = isWhite ? ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] : ['h', 'h', 'f', 'e', 'd', 'c', 'b', 'a'];
   const boardLines = isWhite ? ['8', '7', '6', '5', '4', '3', '2', '1'] : ['1', '2', '3', '4', '5', '6', '7', '8'];
 
@@ -20,7 +21,8 @@ const ChessBoard = ({ position, onMove, isWhite }) => {
   const parseFEN = (fen) => {
     const board = Array(8).fill().map(() => Array(8).fill(''));
     const [position] = fen.split(' ');
-    let boardLine = 0, file = 0;
+    let boardLine = 0;
+    let file = 0;
     
     for (const char of position) {
       if (char === '/') {

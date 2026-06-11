@@ -21,11 +21,12 @@ let LoginPage = (props) => {
                 <div
                 
                 className={styles.login_button}
-                onClick={ () => {login({type: 'GET-TODAY-PUZZLES', username: 'admin', password: 'Adminpass21.' });}} // работает исправно
+                onClick={ () => {login({type: 'LOGIN-USER', userdata: {userid: 1, username: 'admin', password: 'Adminpass21.' }});}} // работает исправно
                 >
-                    Войти НЕ ЗАБУДЬ НАКИНУТЬ СТИЛЕЙ
+                    Войти
                 </div>
             </div>
+
         </div>
     )
 };

@@ -335,7 +335,6 @@ return (
     <div className={styles.gameWrapper}>
       <header className={styles.header}>
         <h1 className={styles.title}>WORDLE</h1>
-
       </header>
 
       <div className={styles.gameControls}>

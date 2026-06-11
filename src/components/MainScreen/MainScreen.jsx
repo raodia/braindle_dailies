@@ -18,7 +18,7 @@ const MainScreen = (props) => {
       <Route path="wordle" element={ <WordleGame state={props.state.PUZZLES_STATE.wordle_puzzles} puzzlesDispatch={props.puzzlesDispatch}/>  } />
       <Route path="sudoku6" element={ <SudokuGame state={props.state.PUZZLES_STATE.sudoku_puzzles} puzzlesDispatch={props.puzzlesDispatch}/> }  />
       <Route path="signup" element={ <SignupPage users={props.state.USERS_STATE} puzzlesDispatch={props.puzzlesDispatch} /> } />
-      <Route path="login" element={ <LoginPage users={props.state.USERS_STATE} puzzlesDispatch={props.puzzlesDispatch} /> } />
+      <Route path="login" element={ <LoginPage users={props.state.USERS_STATE} test={props.state.CURRENT_USER} puzzlesDispatch={props.puzzlesDispatch} /> } />
       <Route path="home" Component={HomePage} />
       <Route path="" Component={HomePage} />
     </Routes>

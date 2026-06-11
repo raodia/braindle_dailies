@@ -4,3 +4,10 @@
   grid-template-rows: 1fr auto auto 1fr;
   grid-template-areas: "hd hd" "nb tg" "0 tg" "o tg";
 }
+
+@media (max-width: 1000px) {
+  .App {
+    display: flex;
+    flex-direction: column;
+  }
+}
